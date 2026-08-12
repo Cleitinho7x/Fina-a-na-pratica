@@ -1,0 +1,292 @@
+from pathlib import Path
+import zipfile, textwrap, os, json
+
+root = Path("/mnt/data/financa-na-pratica")
+if root.exists():
+    import shutil
+    shutil.rmtree(root)
+root.mkdir(parents=True)
+
+files = {}
+
+files["index.html"] = r'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finança na Prática | Educação Financeira</title>
+  <meta name="description" content="Conteúdos práticos sobre organização financeira, economia, crédito, renda extra e investimentos.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cleitinho7x.github.io/Fina-a-na-pratica/">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="container nav">
+    <a class="logo" href="index.html">💰 Finança na Prática</a>
+    <button class="menu" aria-label="Abrir menu">☰</button>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="#artigos">Artigos</a>
+      <a href="#categorias">Categorias</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="tag">EDUCAÇÃO FINANCEIRA</span>
+      <h1>Seu dinheiro, explicado de forma simples.</h1>
+      <p>Aprenda a organizar suas finanças, economizar, controlar dívidas e conhecer melhor o mundo dos investimentos.</p>
+      <a class="btn" href="#artigos">Começar a ler</a>
+    </div>
+    <div class="hero-card">
+      <div class="money">R$</div>
+      <h3>Finança na Prática</h3>
+      <p>Informação para ajudar você a tomar decisões mais conscientes.</p>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <section class="search-box">
+    <input id="search" type="search" placeholder="🔎 Pesquisar artigos..." aria-label="Pesquisar artigos">
+  </section>
+
+  <section id="artigos">
+    <div class="section-head">
+      <div><span class="eyebrow">CONTEÚDO</span><h2>Artigos recentes</h2></div>
+    </div>
+
+    <div class="cards" id="cards">
+      <article class="card" data-search="organizar vida financeira orçamento dinheiro reserva emergência">
+        <div class="card-icon">📊</div>
+        <span class="category">Organização</span>
+        <h3>Como Organizar a Vida Financeira do Zero</h3>
+        <p>Um guia prático para descobrir seus gastos, montar um orçamento e começar uma reserva.</p>
+        <a href="artigo-organizar-financas.html">Ler artigo →</a>
+      </article>
+
+      <article class="card" data-search="renda extra ganhar dinheiro renda">
+        <div class="card-icon">💼</div>
+        <span class="category">Renda Extra</span>
+        <h3>7 Ideias de Renda Extra para Começar com Pouco</h3>
+        <p>Opções para transformar habilidades e tempo livre em uma fonte adicional de renda.</p>
+        <a href="artigo-renda-extra.html">Ler artigo →</a>
+      </article>
+
+      <article class="card" data-search="cartão crédito cartão de crédito fatura dívida">
+        <div class="card-icon">💳</div>
+        <span class="category">Crédito</span>
+        <h3>Como Usar o Cartão de Crédito sem Perder o Controle</h3>
+        <p>Veja como acompanhar parcelas, fatura e limite para evitar que o cartão vire uma armadilha.</p>
+        <a href="artigo-cartao.html">Ler artigo →</a>
+      </article>
+
+      <article class="card" data-search="reserva emergência guardar dinheiro">
+        <div class="card-icon">🛡️</div>
+        <span class="category">Organização</span>
+        <h3>Reserva de Emergência: Por Onde Começar?</h3>
+        <p>Entenda a função da reserva e como criar o hábito de guardar dinheiro aos poucos.</p>
+        <a href="artigo-reserva.html">Ler artigo →</a>
+      </article>
+
+      <article class="card" data-search="investimentos iniciante investir dinheiro">
+        <div class="card-icon">📈</div>
+        <span class="category">Investimentos</span>
+        <h3>Investimentos para Iniciantes: O Que Aprender Primeiro</h3>
+        <p>Um roteiro simples para entender risco, liquidez, objetivos e começar a estudar.</p>
+        <a href="artigo-investimentos.html">Ler artigo →</a>
+      </article>
+
+      <article class="card" data-search="economizar economia gastos dinheiro">
+        <div class="card-icon">🪙</div>
+        <span class="category">Economia</span>
+        <h3>10 Maneiras de Economizar Dinheiro no Dia a Dia</h3>
+        <p>Pequenas mudanças de comportamento que podem ajudar a reduzir desperdícios.</p>
+        <a href="artigo-economizar.html">Ler artigo →</a>
+      </article>
+    </div>
+    <p id="no-results" class="no-results" hidden>Nenhum artigo encontrado.</p>
+  </section>
+
+  <section id="categorias" class="categories">
+    <div class="section-head"><div><span class="eyebrow">EXPLORE</span><h2>Categorias</h2></div></div>
+    <div class="category-grid">
+      <a href="categoria-organizacao.html">📊 <strong>Organização</strong><small>Orçamento e hábitos</small></a>
+      <a href="categoria-renda-extra.html">💼 <strong>Renda Extra</strong><small>Ideias e oportunidades</small></a>
+      <a href="categoria-credito.html">💳 <strong>Crédito</strong><small>Cartões e dívidas</small></a>
+      <a href="categoria-investimentos.html">📈 <strong>Investimentos</strong><small>Conceitos para iniciantes</small></a>
+      <a href="categoria-economia.html">🪙 <strong>Economia</strong><small>Como gastar melhor</small></a>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div>
+      <span class="eyebrow">ATUALIZAÇÕES</span>
+      <h2>Receba novos conteúdos</h2>
+      <p>Cadastre seu e-mail para acompanhar novos artigos.</p>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Cadastro demonstrativo. Para receber e-mails de verdade, conecte um serviço de newsletter.');">
+      <input type="email" required placeholder="Seu melhor e-mail">
+      <button class="btn" type="submit">Quero receber</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div><strong>💰 Finança na Prática</strong><p>Educação financeira simples e prática.</p></div>
+    <div><a href="sobre.html">Sobre</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos</a><a href="contato.html">Contato</a></div>
+  </div>
+  <div class="container copyright">© 2026 Finança na Prática. Conteúdo educativo; não constitui recomendação financeira.</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>'''
+
+files["style.css"] = r'''*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,Arial,sans-serif;background:#f5f7f8;color:#17231d;line-height:1.7}.container{width:min(1100px,92%);margin:auto}.top{background:#07552e;color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0002}.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{color:#fff;text-decoration:none;font-size:21px;font-weight:800}.nav nav{display:flex;gap:22px}.nav nav a,.footer-grid a{color:inherit;text-decoration:none}.nav nav a:hover,.footer-grid a:hover{text-decoration:underline}.menu{display:none;background:none;border:0;color:#fff;font-size:25px}.hero{background:linear-gradient(135deg,#07552e,#0b7a43);color:#fff;padding:70px 0}.hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:50px;align-items:center}.tag,.eyebrow,.category{font-size:12px;font-weight:800;letter-spacing:.08em}.hero h1{font-size:clamp(38px,6vw,64px);line-height:1.05;margin:15px 0}.hero p{font-size:18px;max-width:650px;color:#e4f5eb}.btn{display:inline-block;border:0;background:#f4c542;color:#17231d;font-weight:800;padding:12px 18px;border-radius:8px;text-decoration:none;cursor:pointer;margin-top:22px}.hero-card{background:#ffffff16;border:1px solid #ffffff30;border-radius:18px;padding:35px;backdrop-filter:blur(5px)}.money{font-size:65px;font-weight:900}.search-box{margin:30px 0}.search-box input{width:100%;padding:16px;border:1px solid #d5ddd8;border-radius:10px;font-size:16px;background:#fff}.section-head{margin:45px 0 20px}.eyebrow{color:#0b6b3a}.section-head h2{font-size:32px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:#fff;border:1px solid #e4e9e6;border-radius:14px;padding:24px;box-shadow:0 4px 15px #0000000a}.card-icon{font-size:34px}.category{color:#0b6b3a;display:block;margin-top:10px}.card h3{font-size:21px;line-height:1.3;margin:8px 0}.card p{color:#5c6861}.card a{display:inline-block;margin-top:15px;color:#07552e;font-weight:800;text-decoration:none}.card a:hover{text-decoration:underline}.categories{margin:60px 0}.category-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.category-grid a{background:#fff;padding:18px;border-radius:12px;text-decoration:none;color:#17231d;border:1px solid #e4e9e6}.category-grid strong,.category-grid small{display:block}.category-grid small{color:#68756e}.newsletter{background:#e8f4ed;border-radius:16px;padding:30px;display:flex;justify-content:space-between;gap:25px;align-items:center;margin:50px 0}.newsletter form{display:flex;gap:8px}.newsletter input{padding:13px;border:1px solid #cbd8d0;border-radius:8px;min-width:250px}.newsletter .btn{margin:0}.no-results{padding:30px;background:#fff;border-radius:12px}footer{background:#16231d;color:#dce7e0;margin-top:60px;padding:35px 0}.footer-grid{display:flex;justify-content:space-between;gap:30px}.footer-grid div:last-child{display:flex;gap:18px}.copyright{border-top:1px solid #ffffff20;margin-top:25px;padding-top:20px;font-size:13px;color:#aebbb3}.article-page{max-width:820px;margin:45px auto}.article-page .article{background:#fff;padding:40px;border-radius:16px;box-shadow:0 4px 18px #0000000a}.article-page h1{font-size:clamp(32px,5vw,48px);line-height:1.12;margin:10px 0 20px}.article-page h2{font-size:27px;margin:35px 0 10px;color:#07552e}.article-page p,.article-page li{font-size:17px}.article-page ul,.article-page ol{margin:10px 0 20px 25px}.highlight{background:#e9f7ef;border-left:5px solid #0b6b3a;padding:18px;margin:20px 0;border-radius:6px}.ad-slot{border:1px dashed #b8c5bd;color:#7b877f;text-align:center;padding:22px;margin:25px 0;font-size:12px}.legal{max-width:800px;margin:45px auto;background:#fff;padding:35px;border-radius:16px}.legal h1{margin-bottom:20px}.legal h2{margin-top:25px;color:#07552e}.legal p{margin:12px 0}@media(max-width:800px){.nav nav{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:68px;left:0;right:0;background:#07552e;padding:15px;flex-direction:column}.hero-grid,.cards{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}.newsletter,.footer-grid{flex-direction:column}.footer-grid div:last-child{flex-wrap:wrap}.newsletter form{width:100%;flex-direction:column}.newsletter input{min-width:0;width:100%}}'''
+
+files["script.js"] = r'''const menu=document.querySelector(".menu");const nav=document.querySelector(".nav");if(menu){menu.addEventListener("click",()=>nav.classList.toggle("open"))}
+const search=document.querySelector("#search");const cards=[...document.querySelectorAll(".card")];const noResults=document.querySelector("#no-results");if(search){search.addEventListener("input",()=>{const q=search.value.toLowerCase().trim();let count=0;cards.forEach(c=>{const ok=c.dataset.search.includes(q)||c.innerText.toLowerCase().includes(q);c.style.display=ok?"block":"none";if(ok)count++});if(noResults)noResults.hidden=count!==0})}'''
+
+def article(title, category, intro, sections):
+    parts=[f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{title} | Finança na Prática</title><meta name="description" content="{intro}"><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a><a href="sobre.html">Sobre</a><a href="privacidade.html">Privacidade</a></nav></div></header><main class="article-page"><article class="article"><span class="category">{category}</span><h1>{title}</h1><p><strong>{intro}</strong></p><div class="ad-slot">Espaço para anúncio — será preenchido somente após você configurar o AdSense.</div>''']
+    for h,p in sections:
+        parts.append(f"<h2>{h}</h2>{p}")
+    parts.append('''<div class="ad-slot">Espaço para anúncio — não coloque anúncios antes de ter o código oficial da sua conta.</div></article></main><footer><div class="container footer-grid"><div><strong>💰 Finança na Prática</strong><p>Educação financeira simples e prática.</p></div><div><a href="sobre.html">Sobre</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos</a><a href="contato.html">Contato</a></div></div><div class="container copyright">© 2026 Finança na Prática. Conteúdo educativo; não constitui recomendação financeira.</div></footer></body></html>''')
+    return "".join(parts)
+
+files["artigo-organizar-financas.html"]=article(
+"Como Organizar a Vida Financeira do Zero","ORGANIZAÇÃO",
+"Um guia prático para descobrir seus gastos, montar um orçamento, reduzir dívidas e começar uma reserva de emergência.",
+[
+("1. Descubra quanto você realmente ganha","<p>Anote sua renda mensal líquida e outras entradas recorrentes. Se sua renda variar, trabalhe com uma média conservadora.</p>"),
+("2. Liste todos os seus gastos","<p>Durante 30 dias, registre moradia, alimentação, transporte, dívidas, lazer e compras pequenas. Os pequenos gastos também contam.</p>"),
+("3. Monte um orçamento","<p>Uma referência conhecida é 50% para necessidades, 30% para desejos e 20% para objetivos financeiros. Adapte à sua realidade.</p>"),
+("4. Controle o cartão de crédito","<p>Acompanhe o valor das parcelas futuras e evite assumir compromissos que não cabem no orçamento.</p>"),
+("5. Crie uma reserva de emergência","<p>Comece com o valor que conseguir. A constância é mais importante do que começar com uma quantia alta.</p>"),
+("6. Priorize dívidas caras","<p>Liste saldo, juros, parcela e prazo. Dê atenção especial às dívidas com juros elevados e procure negociar quando possível.</p>"),
+("Conclusão","<div class='highlight'><strong>Começar pequeno ainda é começar.</strong> O objetivo é transformar o controle do dinheiro em um hábito.</div>")
+])
+
+files["artigo-renda-extra.html"]=article("7 Ideias de Renda Extra para Começar com Pouco","RENDA EXTRA","Ideias práticas para explorar habilidades e tempo livre e criar uma fonte adicional de renda.",[
+("1. Serviços locais","<p>Limpeza, pequenos reparos, montagem, jardinagem e outros serviços podem começar com divulgação para pessoas próximas.</p>"),
+("2. Freelance online","<p>Redação, edição, design, atendimento e outras habilidades podem ser oferecidas em plataformas de serviços.</p>"),
+("3. Venda de alimentos","<p>Doces, bolos, salgados e refeições podem ser testados em pequena escala antes de investir mais.</p>"),
+("4. Revenda","<p>Escolha um produto com demanda, calcule custos e margem antes de comprar estoque.</p>"),
+("5. Aulas e consultoria","<p>Se você domina uma habilidade, pode ensinar iniciantes presencialmente ou pela internet.</p>"),
+("6. Produtos digitais","<p>E-books, modelos e materiais educativos podem ser criados quando você tiver conhecimento útil e original.</p>"),
+("7. Conteúdo","<p>Um blog, canal ou perfil de conteúdo pode virar uma fonte de renda no longo prazo, mas exige consistência.</p>")
+])
+
+files["artigo-cartao.html"]=article("Como Usar o Cartão de Crédito sem Perder o Controle","CRÉDITO","Aprenda a acompanhar limite, parcelas e fatura para usar o cartão de forma mais consciente.",[
+("Conheça seu limite real","<p>Limite disponível não significa dinheiro disponível. O pagamento da fatura precisa caber na sua renda.</p>"),
+("Acompanhe as parcelas","<p>Some as parcelas futuras para entender quanto do orçamento já está comprometido.</p>"),
+("Evite pagar apenas o mínimo","<p>O crédito rotativo pode aumentar rapidamente o custo de uma dívida. Se tiver dificuldade para pagar a fatura, procure alternativas de negociação.</p>"),
+("Defina um teto pessoal","<p>Mesmo que o banco ofereça um limite alto, estabeleça um limite pessoal compatível com seu orçamento.</p>")
+])
+
+files["artigo-reserva.html"]=article("Reserva de Emergência: Por Onde Começar?","ORGANIZAÇÃO","Entenda para que serve uma reserva de emergência e como construir esse colchão financeiro aos poucos.",[
+("Para que serve","<p>A reserva existe para despesas inesperadas e períodos de perda ou redução de renda.</p>"),
+("Quanto guardar","<p>Não existe um número único que sirva para todo mundo. Considere estabilidade da renda, despesas essenciais e responsabilidades.</p>"),
+("Como começar","<p>Defina um valor mensal automático e aumente gradualmente quando sua renda permitir.</p>"),
+("Onde deixar","<p>Para uma reserva, normalmente fazem sentido opções de baixo risco e alta liquidez. Compare as características do produto antes de escolher.</p>")
+])
+
+files["artigo-investimentos.html"]=article("Investimentos para Iniciantes: O Que Aprender Primeiro","INVESTIMENTOS","Um roteiro básico para entender objetivos, risco, liquidez e começar a estudar investimentos.",[
+("Defina o objetivo","<p>Investir para uma emergência é diferente de investir para uma meta de longo prazo. O objetivo influencia prazo e risco.</p>"),
+("Entenda risco e retorno","<p>Em geral, maior potencial de retorno vem acompanhado de maior risco. Não invista em algo que você não entende.</p>"),
+("Conheça a liquidez","<p>Liquidez é a facilidade e velocidade de transformar o investimento em dinheiro disponível. Para objetivos de curto prazo, isso é especialmente importante.</p>"),
+("Diversifique com conhecimento","<p>Diversificação pode reduzir a concentração de riscos, mas não elimina perdas. Estude antes de tomar decisões.</p>")
+])
+
+files["artigo-economizar.html"]=article("10 Maneiras de Economizar Dinheiro no Dia a Dia","ECONOMIA","Pequenas mudanças podem ajudar a reduzir desperdícios e liberar espaço no orçamento.",[
+("1. Planeje compras","<p>Faça uma lista antes de comprar e compare preços.</p>"),
+("2. Reveja assinaturas","<p>Cancele serviços que você quase não usa.</p>"),
+("3. Cozinhe mais em casa","<p>Planejar refeições pode reduzir gastos com delivery e compras por impulso.</p>"),
+("4. Espere antes de comprar","<p>Para compras não essenciais, crie uma regra de espera de 24 horas.</p>"),
+("5. Compare tarifas","<p>Revise serviços bancários, telefonia e outros contratos quando possível.</p>"),
+("6. Evite desperdícios","<p>Controle alimentos, energia e água.</p>"),
+("7. Use uma lista de metas","<p>Economizar fica mais fácil quando existe um objetivo definido.</p>"),
+("8. Negocie","<p>Em algumas compras ou serviços, pedir melhores condições pode funcionar.</p>"),
+("9. Automatize sua economia","<p>Separe o dinheiro destinado à meta assim que receber.</p>"),
+("10. Revise seu orçamento","<p>Faça uma revisão mensal e ajuste o que não estiver funcionando.</p>")
+])
+
+for name, cat, links in [
+("categoria-organizacao.html","Organização",["artigo-organizar-financas.html","artigo-reserva.html"]),
+("categoria-renda-extra.html","Renda Extra",["artigo-renda-extra.html"]),
+("categoria-credito.html","Crédito",["artigo-cartao.html"]),
+("categoria-investimentos.html","Investimentos",["artigo-investimentos.html"]),
+("categoria-economia.html","Economia",["artigo-economizar.html"])
+]:
+    titles={
+        "artigo-organizar-financas.html":"Como Organizar a Vida Financeira do Zero",
+        "artigo-reserva.html":"Reserva de Emergência: Por Onde Começar?",
+        "artigo-renda-extra.html":"7 Ideias de Renda Extra para Começar com Pouco",
+        "artigo-cartao.html":"Como Usar o Cartão de Crédito sem Perder o Controle",
+        "artigo-investimentos.html":"Investimentos para Iniciantes: O Que Aprender Primeiro",
+        "artigo-economizar.html":"10 Maneiras de Economizar Dinheiro no Dia a Dia"
+    }
+    cards="".join(f'<div class="card"><div class="card-icon">📝</div><h3>{titles[x]}</h3><a href="{x}">Ler artigo →</a></div>' for x in links)
+    files[name]=f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{cat} | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a><a href="sobre.html">Sobre</a></nav></div></header><main class="container"><div class="section-head"><span class="eyebrow">CATEGORIA</span><h1>{cat}</h1></div><div class="cards">{cards}</div></main><footer><div class="container copyright">© 2026 Finança na Prática.</div></footer></body></html>'''
+
+files["sobre.html"]=r'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Sobre | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a></nav></div></header><main class="legal"><h1>Sobre o Finança na Prática</h1><p>O Finança na Prática é um projeto de conteúdo sobre educação financeira, criado para explicar conceitos de dinheiro de forma simples, direta e acessível.</p><p>Publicamos materiais sobre organização financeira, renda extra, crédito, economia e investimentos.</p><p>Nosso objetivo é oferecer informação educativa para ajudar o leitor a estudar e tomar decisões mais conscientes.</p><p><strong>Importante:</strong> os conteúdos não constituem recomendação individual de investimento ou consultoria financeira.</p></main><footer><div class="container copyright">© 2026 Finança na Prática.</div></footer></body></html>'''
+
+files["contato.html"]=r'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Contato | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a></nav></div></header><main class="legal"><h1>Contato</h1><p>Para entrar em contato com o Finança na Prática, envie uma mensagem pelo canal de contato que você definir.</p><p><strong>E-mail:</strong> coloque aqui o seu e-mail profissional antes de publicar.</p><p>Se você ainda não possui um e-mail para o blog, crie um endereço exclusivo para receber mensagens dos leitores.</p></main><footer><div class="container copyright">© 2026 Finança na Prática.</div></footer></body></html>'''
+
+files["privacidade.html"]=r'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Política de Privacidade | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a></nav></div></header><main class="legal"><h1>Política de Privacidade</h1><p>Esta página explica, de forma geral, como o site Finança na Prática pode tratar informações relacionadas à navegação.</p><h2>Dados de navegação</h2><p>O site pode utilizar ferramentas de análise, cookies e tecnologias semelhantes caso esses serviços sejam ativados.</p><h2>Publicidade</h2><p>Caso anúncios de terceiros, incluindo Google AdSense, sejam ativados, fornecedores poderão utilizar cookies e tecnologias semelhantes para veicular e medir publicidade. O Google informa que cookies de publicidade podem ser usados para anúncios baseados em visitas anteriores do usuário a este ou a outros sites.</p><h2>Controle de publicidade personalizada</h2><p>Os usuários podem consultar as configurações de anúncios do Google e as opções oferecidas pelos fornecedores de publicidade para controlar publicidade personalizada.</p><h2>Formulários</h2><p>Se o site receber dados enviados voluntariamente por formulário ou e-mail, esses dados serão utilizados para responder à solicitação correspondente.</p><h2>Atualizações</h2><p>Esta política pode ser atualizada quando novos recursos, ferramentas ou serviços forem adicionados ao site.</p></main><footer><div class="container copyright">© 2026 Finança na Prática.</div></footer></body></html>'''
+
+files["termos.html"]=r'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Termos de Uso | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><header class="top"><div class="container nav"><a class="logo" href="index.html">💰 Finança na Prática</a><nav><a href="index.html">Início</a></nav></div></header><main class="legal"><h1>Termos de Uso</h1><p>Ao acessar o Finança na Prática, você concorda em utilizar o conteúdo de maneira responsável e de acordo com a legislação aplicável.</p><h2>Conteúdo educativo</h2><p>Os artigos têm finalidade informativa e educativa. Não representam consultoria, recomendação personalizada ou garantia de resultados financeiros.</p><h2>Responsabilidade</h2><p>Decisões financeiras devem considerar a situação individual do leitor. Antes de contratar produtos ou realizar investimentos, avalie informações oficiais e, quando necessário, procure um profissional qualificado.</p><h2>Propriedade intelectual</h2><p>O conteúdo original deste site não deve ser reproduzido integralmente sem autorização.</p></main><footer><div class="container copyright">© 2026 Finança na Prática.</div></footer></body></html>'''
+
+files["404.html"]=r'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Página não encontrada | Finança na Prática</title><link rel="stylesheet" href="style.css"></head><body><main class="legal"><h1>Ops! Página não encontrada.</h1><p>O endereço que você tentou acessar não existe.</p><a class="btn" href="index.html">Voltar ao início</a></main></body></html>'''
+
+files["robots.txt"]=r'''User-agent: *
+Allow: /
+
+Sitemap: https://cleitinho7x.github.io/Fina-a-na-pratica/sitemap.xml
+'''
+
+files["sitemap.xml"]=r'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-organizar-financas.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-renda-extra.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-cartao.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-reserva.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-investimentos.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/artigo-economizar.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/sobre.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/contato.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/privacidade.html</loc></url>
+<url><loc>https://cleitinho7x.github.io/Fina-a-na-pratica/termos.html</loc></url>
+</urlset>
+'''
+
+files["README.txt"]=r'''FINANÇA NA PRÁTICA — ARQUIVOS DO BLOG
+
+1. Faça backup dos arquivos atuais do seu repositório.
+2. Envie todos estes arquivos para a raiz do repositório Fina-a-na-pratica.
+3. O arquivo index.html deve ficar na raiz.
+4. O GitHub Pages publicará automaticamente após o commit.
+
+IMPORTANTE:
+- Os espaços de anúncio são apenas marcadores. Não substitua por códigos inventados.
+- Quando sua conta do Google AdSense for aprovada, use o código fornecido pelo próprio Google.
+- Antes de publicar, substitua o texto de contato pelo seu e-mail.
+- Revise a Política de Privacidade conforme os serviços que realmente ativar no site.
+'''
+
+for name, content in files.items():
+    (root/name).write_text(content, encoding="utf-8")
+
+zip_path = Path("/mnt/data/financa-na-pratica-site.zip")
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for p in root.rglob("*"):
+        z.write(p, p.relative_to(root.parent))
+
+print(f"Pacote criado: {zip_path}")
+print(f"{len(files)} arquivos incluídos.")
