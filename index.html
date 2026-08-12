@@ -1,84 +1,771 @@
-<!doctype html>
+# index.html
+
+```html
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Finança na Prática — Dinheiro, Crédito e Renda Extra</title>
-<meta name="description" content="Conteúdo simples sobre finanças pessoais, crédito, renda extra e investimentos para brasileiros.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finança na Prática | Educação Financeira</title>
+
+<meta name="description" content="Finança na Prática: dicas simples para organizar seu dinheiro, economizar, sair das dívidas e aprender sobre investimentos.">
+
 <style>
-:root{--bg:#f7f9fc;--card:#fff;--text:#172033;--muted:#667085;--brand:#0b7a5a;--brand2:#075c45;--line:#e6eaf0}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.nav{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-weight:800;font-size:22px;color:var(--brand);text-decoration:none}.logo span{color:var(--text)}
-nav a{margin-left:18px;text-decoration:none;color:var(--text);font-weight:600}
-.hero{background:linear-gradient(135deg,#063f31,#0b7a5a);color:white;padding:70px 20px}.hero-inner{max-width:1100px;margin:auto}
-.badge{display:inline-block;background:#ffffff20;border:1px solid #ffffff40;padding:6px 12px;border-radius:999px;font-size:13px}
-h1{font-size:clamp(34px,6vw,58px);line-height:1.05;margin:18px 0}.hero p{max-width:680px;font-size:18px;color:#e7fff7}
-.btn{display:inline-block;background:#fff;color:var(--brand2);padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800;margin-top:12px}
-.container{max-width:1100px;margin:auto;padding:45px 20px}.section-title{display:flex;justify-content:space-between;align-items:end;gap:20px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 5px 20px #17203308}.card-body{padding:22px}.tag{color:var(--brand);font-size:13px;font-weight:800}.card h3{margin:8px 0;font-size:21px}.card p{color:var(--muted);margin-bottom:0}
-.ad{margin:30px 0;background:#eef1f5;border:1px dashed #b8c0cc;min-height:90px;display:flex;align-items:center;justify-content:center;color:#7b8492;font-size:13px}
-.categories{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.category{background:#fff;border:1px solid var(--line);padding:12px 16px;border-radius:10px;text-decoration:none;color:var(--text);font-weight:700}
-.newsletter{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px;margin-top:45px}.newsletter form{display:flex;gap:10px;max-width:650px}.newsletter input{flex:1;padding:13px;border:1px solid #ccd2db;border-radius:9px}.newsletter button{border:0;background:var(--brand);color:#fff;font-weight:800;padding:13px 18px;border-radius:9px}
-footer{background:#101828;color:#d0d5dd;margin-top:40px;padding:35px 20px}footer .inner{max-width:1100px;margin:auto}footer a{color:#d0d5dd;margin-right:15px}
-@media(max-width:760px){nav{display:none}.grid{grid-template-columns:1fr}.hero{padding:50px 20px}.newsletter form{flex-direction:column}}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7f5;
+  color:#17231d;
+  line-height:1.7;
+}
+
+header{
+  background:#07552e;
+  color:white;
+}
+
+.topo{
+  max-width:1100px;
+  margin:auto;
+  padding:22px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:white;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:bold;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  text-decoration:underline;
+}
+
+.hero{
+  background:linear-gradient(135deg,#07552e,#0b7a43);
+  color:white;
+  padding:65px 20px;
+}
+
+.hero-content{
+  max-width:1100px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:clamp(35px,6vw,58px);
+  line-height:1.1;
+  max-width:700px;
+}
+
+.hero p{
+  max-width:650px;
+  font-size:18px;
+  margin-top:18px;
+  color:#e4f5eb;
+}
+
+.botao{
+  display:inline-block;
+  background:#f4c542;
+  color:#17231d;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:8px;
+  font-weight:bold;
+  margin-top:22px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:0 20px;
+}
+
+.pesquisa{
+  margin:30px 0;
+}
+
+.pesquisa input{
+  width:100%;
+  padding:16px;
+  border:1px solid #d5ddd8;
+  border-radius:10px;
+  font-size:16px;
+  background:white;
+}
+
+.titulo{
+  margin:45px 0 20px;
+}
+
+.titulo h2{
+  font-size:32px;
+  color:#07552e;
+}
+
+.artigos{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #e2e8e4;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+.icone{
+  font-size:35px;
+}
+
+.categoria{
+  display:block;
+  color:#0b6b3a;
+  font-size:13px;
+  font-weight:bold;
+  margin-top:10px;
+  text-transform:uppercase;
+}
+
+.card h3{
+  font-size:21px;
+  line-height:1.3;
+  margin:8px 0;
+}
+
+.card p{
+  color:#5d6962;
+}
+
+.card a{
+  display:inline-block;
+  color:#07552e;
+  text-decoration:none;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.card a:hover{
+  text-decoration:underline;
+}
+
+.categorias{
+  margin:60px 0;
+}
+
+.lista-categorias{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+}
+
+.lista-categorias a{
+  background:white;
+  color:#17231d;
+  text-decoration:none;
+  padding:18px;
+  border-radius:10px;
+  border:1px solid #e2e8e4;
+  font-weight:bold;
+}
+
+.lista-categorias a:hover{
+  border-color:#07552e;
+}
+
+.sobre{
+  background:white;
+  padding:30px;
+  border-radius:14px;
+  margin:50px 0;
+}
+
+.sobre h2{
+  color:#07552e;
+  margin-bottom:10px;
+}
+
+footer{
+  background:#16231d;
+  color:#dce7e0;
+  padding:35px 20px;
+  margin-top:50px;
+}
+
+.footer-content{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:25px;
+}
+
+footer a{
+  color:#dce7e0;
+  text-decoration:none;
+  margin-left:15px;
+}
+
+.copyright{
+  max-width:1100px;
+  margin:25px auto 0;
+  padding-top:20px;
+  border-top:1px solid #ffffff22;
+  font-size:13px;
+}
+
+@media(max-width:800px){
+
+  .topo{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  nav a{
+    margin:0 7px;
+    font-size:14px;
+  }
+
+  .artigos{
+    grid-template-columns:1fr;
+  }
+
+  .lista-categorias{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer-content{
+    flex-direction:column;
+  }
+
+  footer a{
+    margin:0 12px 0 0;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="nav">
-<a class="logo" href="#">Finança <span>na Prática</span></a>
-<nav><a href="#artigos">Artigos</a><a href="#categorias">Categorias</a><a href="#newsletter">Receba dicas</a></nav>
-</div>
+
+  <div class="topo">
+
+    <a class="logo" href="index.html">
+      💰 Finança na Prática
+    </a>
+
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="#artigos">Artigos</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+
+  </div>
+
 </header>
 
+
 <section class="hero">
-<div class="hero-inner">
-<span class="badge">Educação financeira sem complicação</span>
-<h1>Aprenda a cuidar melhor do seu dinheiro.</h1>
-<p>Conteúdo direto sobre crédito, renda extra, economia e investimentos para ajudar você a tomar decisões financeiras mais inteligentes.</p>
-<a class="btn" href="#artigos">Ler os artigos →</a>
-</div>
+
+  <div class="hero-content">
+
+    <h1>
+      Seu dinheiro explicado de forma simples.
+    </h1>
+
+    <p>
+      Aprenda a organizar suas finanças, economizar dinheiro,
+      controlar dívidas e entender melhor os investimentos.
+    </p>
+
+    <a class="botao" href="#artigos">
+      Começar a ler
+    </a>
+
+  </div>
+
 </section>
+
 
 <main class="container">
-<div class="ad">ESPAÇO PARA ANÚNCIO — configure sua plataforma de anúncios aqui</div>
 
-<section id="artigos">
-<div class="section-title"><div><span class="tag">CONTEÚDO EM DESTAQUE</span><h2>Artigos que podem ajudar no seu bolso</h2></div></div>
-<div class="grid">
-<article class="card"><div class="card-body"><span class="tag">RENDA EXTRA</span><h3>7 formas de aumentar sua renda usando a internet</h3><p>Ideias realistas para começar pequeno, testar oportunidades e desenvolver novas fontes de renda.</p></div></article>
-<article class="card"><div class="card-body"><span class="tag">CRÉDITO</span><h3>Como melhorar seu score de crédito</h3><p>Entenda os principais fatores que influenciam seu histórico e hábitos que podem ajudar.</p></div></article>
-<article class="card"><div class="card-body"><span class="tag">INVESTIMENTOS</span><h3>Como começar a investir com pouco dinheiro</h3><p>Um guia introdutório para entender objetivos, risco, liquidez e diversificação.</p></div></article>
-<article class="card"><div class="card-body"><span class="tag">ECONOMIA</span><h3>Como montar um orçamento mensal simples</h3><p>Organize entradas e gastos sem precisar de planilhas complicadas.</p></div></article>
-<article class="card"><div class="card-body"><span class="tag">CARTÕES</span><h3>Como escolher um cartão de crédito</h3><p>Veja o que comparar antes de escolher um cartão e quais custos merecem atenção.</p></div></article>
-<article class="card"><div class="card-body"><span class="tag">DINHEIRO</span><h3>10 hábitos para gastar menos no mês</h3><p>Pequenas mudanças que podem fazer diferença no orçamento ao longo do tempo.</p></div></article>
-</div>
-</section>
+  <div class="pesquisa">
 
-<div class="ad">ESPAÇO PARA ANÚNCIO — posição intermediária</div>
+    <input
+      type="search"
+      id="pesquisa"
+      placeholder="🔎 Pesquisar artigos..."
+      onkeyup="buscarArtigos()"
+    >
 
-<section id="categorias">
-<span class="tag">EXPLORE</span><h2>Categorias</h2>
-<div class="categories">
-<a class="category" href="#">💰 Renda Extra</a><a class="category" href="#">💳 Crédito</a><a class="category" href="#">📈 Investimentos</a><a class="category" href="#">🏦 Bancos</a><a class="category" href="#">🧾 Economia</a><a class="category" href="#">🛒 Finanças do dia a dia</a>
-</div>
-</section>
+  </div>
 
-<section class="newsletter" id="newsletter">
-<span class="tag">GRÁTIS</span><h2>Receba dicas de dinheiro no seu e-mail</h2>
-<p>Cadastre-se para receber novos conteúdos. Não enviamos spam.</p>
-<form onsubmit="event.preventDefault(); alert('Cadastro demonstrativo. Conecte este formulário a uma ferramenta de e-mail para ativá-lo.');">
-<input type="email" required placeholder="Seu melhor e-mail"><button type="submit">Quero receber</button>
-</form>
-</section>
+
+  <section id="artigos">
+
+    <div class="titulo">
+
+      <h2>📰 Artigos recentes</h2>
+
+    </div>
+
+
+    <div class="artigos" id="listaArtigos">
+
+
+      <article class="card">
+
+        <div class="icone">📊</div>
+
+        <span class="categoria">
+          Organização
+        </span>
+
+        <h3>
+          Como Organizar a Vida Financeira do Zero
+        </h3>
+
+        <p>
+          Aprenda a controlar seus gastos, montar um orçamento,
+          reduzir dívidas e começar uma reserva de emergência.
+        </p>
+
+        <a href="#artigo-financas">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icone">💼</div>
+
+        <span class="categoria">
+          Renda Extra
+        </span>
+
+        <h3>
+          7 Ideias de Renda Extra para Começar com Pouco
+        </h3>
+
+        <p>
+          Conheça ideias simples para transformar habilidades
+          e tempo livre em uma renda adicional.
+        </p>
+
+        <a href="#renda-extra">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icone">💳</div>
+
+        <span class="categoria">
+          Crédito
+        </span>
+
+        <h3>
+          Como Usar o Cartão de Crédito sem Perder o Controle
+        </h3>
+
+        <p>
+          Aprenda a controlar parcelas, fatura e limite
+          para evitar problemas financeiros.
+        </p>
+
+        <a href="#cartao">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icone">🛡️</div>
+
+        <span class="categoria">
+          Organização
+        </span>
+
+        <h3>
+          Reserva de Emergência: Por Onde Começar?
+        </h3>
+
+        <p>
+          Descubra como começar sua reserva mesmo guardando
+          pequenas quantias todos os meses.
+        </p>
+
+        <a href="#reserva">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icone">📈</div>
+
+        <span class="categoria">
+          Investimentos
+        </span>
+
+        <h3>
+          Investimentos para Iniciantes
+        </h3>
+
+        <p>
+          Entenda conceitos importantes antes de começar
+          a investir seu dinheiro.
+        </p>
+
+        <a href="#investimentos">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="icone">🪙</div>
+
+        <span class="categoria">
+          Economia
+        </span>
+
+        <h3>
+          10 Maneiras de Economizar Dinheiro
+        </h3>
+
+        <p>
+          Veja mudanças simples que podem ajudar a diminuir
+          seus gastos no dia a dia.
+        </p>
+
+        <a href="#economizar">
+          Ler artigo →
+        </a>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <section id="categorias" class="categorias">
+
+    <div class="titulo">
+
+      <h2>🏷️ Categorias</h2>
+
+    </div>
+
+    <div class="lista-categorias">
+
+      <a href="#artigos">
+        📊 Organização
+      </a>
+
+      <a href="#artigos">
+        💼 Renda Extra
+      </a>
+
+      <a href="#artigos">
+        💳 Crédito
+      </a>
+
+      <a href="#artigos">
+        📈 Investimentos
+      </a>
+
+      <a href="#artigos">
+        🪙 Economia
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- ARTIGO PRINCIPAL -->
+
+  <article id="artigo-financas" class="sobre">
+
+    <span class="categoria">
+      ORGANIZAÇÃO FINANCEIRA
+    </span>
+
+    <h2>
+      Como Organizar a Vida Financeira do Zero
+    </h2>
+
+    <p>
+      Cuidar do dinheiro não precisa ser complicado. O primeiro
+      passo é descobrir quanto entra, quanto sai e para onde
+      seu dinheiro está indo.
+    </p>
+
+    <h3>1. Descubra quanto você ganha</h3>
+
+    <p>
+      Anote todas as suas fontes de renda. Considere salário,
+      trabalhos extras, comissões, vendas e outras entradas.
+    </p>
+
+    <h3>2. Liste todos os seus gastos</h3>
+
+    <p>
+      Durante 30 dias, registre seus gastos. Separe despesas
+      de moradia, alimentação, transporte, dívidas e lazer.
+    </p>
+
+    <h3>3. Monte um orçamento</h3>
+
+    <p>
+      Uma referência bastante conhecida é a regra 50/30/20:
+      50% para necessidades, 30% para desejos e 20% para
+      objetivos financeiros. Adapte essa divisão à sua realidade.
+    </p>
+
+    <h3>4. Controle o cartão de crédito</h3>
+
+    <p>
+      Acompanhe suas parcelas e o valor total da fatura.
+      Lembre-se: limite disponível não significa dinheiro disponível.
+    </p>
+
+    <h3>5. Crie uma reserva de emergência</h3>
+
+    <p>
+      Comece com o valor que couber no seu orçamento.
+      Guardar R$ 20, R$ 50 ou R$ 100 por mês já ajuda a criar
+      o hábito de poupar.
+    </p>
+
+    <h3>6. Organize suas dívidas</h3>
+
+    <p>
+      Liste suas dívidas, taxas de juros, parcelas e prazos.
+      Priorize aquelas que possuem juros mais altos.
+    </p>
+
+    <h3>Conclusão</h3>
+
+    <p>
+      Organizar a vida financeira é um processo. Comece pequeno,
+      acompanhe seus gastos e estabeleça objetivos claros.
+    </p>
+
+    <p>
+      <strong>
+        Quanto antes você começar, mais cedo poderá construir
+        uma vida financeira mais organizada.
+      </strong>
+    </p>
+
+  </article>
+
+
+  <section id="renda-extra" class="sobre">
+
+    <h2>💼 7 Ideias de Renda Extra</h2>
+
+    <p>
+      Algumas possibilidades incluem vender alimentos, prestar
+      serviços, trabalhar como freelancer, revender produtos,
+      dar aulas, criar produtos digitais e produzir conteúdo.
+    </p>
+
+  </section>
+
+
+  <section id="cartao" class="sobre">
+
+    <h2>💳 Como Usar o Cartão de Crédito</h2>
+
+    <p>
+      Acompanhe suas compras, controle as parcelas e evite
+      assumir uma fatura que você não consegue pagar.
+    </p>
+
+  </section>
+
+
+  <section id="reserva" class="sobre">
+
+    <h2>🛡️ Reserva de Emergência</h2>
+
+    <p>
+      A reserva serve para situações inesperadas. Comece com
+      uma quantia que caiba no seu orçamento e aumente aos poucos.
+    </p>
+
+  </section>
+
+
+  <section id="investimentos" class="sobre">
+
+    <h2>📈 Investimentos para Iniciantes</h2>
+
+    <p>
+      Antes de investir, entenda seu objetivo, prazo, risco
+      e liquidez. Nunca invista em algo que você não entende.
+    </p>
+
+  </section>
+
+
+  <section id="economizar" class="sobre">
+
+    <h2>🪙 10 Maneiras de Economizar</h2>
+
+    <p>
+      Planeje suas compras, compare preços, reveja assinaturas,
+      evite desperdícios, cozinhe mais em casa e acompanhe
+      seu orçamento mensal.
+    </p>
+
+  </section>
+
+
+  <section id="sobre" class="sobre">
+
+    <h2>Sobre o Finança na Prática</h2>
+
+    <p>
+      O Finança na Prática foi criado para apresentar conteúdos
+      de educação financeira de maneira simples e fácil de entender.
+    </p>
+
+    <p>
+      Aqui você encontrará informações sobre organização financeira,
+      economia, renda extra, crédito e investimentos.
+    </p>
+
+    <p>
+      <strong>
+        Este site possui finalidade educativa e não oferece
+        recomendação financeira individual.
+      </strong>
+    </p>
+
+  </section>
+
 </main>
 
-<footer><div class="inner">
-<strong>Finança na Prática</strong><p>Informação para ajudar você a tomar decisões financeiras com mais clareza.</p>
-<a href="#">Sobre</a><a href="#">Contato</a><a href="#">Política de Privacidade</a><a href="#">Termos de Uso</a>
-<p style="font-size:12px;margin-top:25px">Aviso: o conteúdo é educativo e não constitui recomendação financeira personalizada.</p>
-</div></footer>
+
+<footer>
+
+  <div class="footer-content">
+
+    <div>
+
+      <strong>
+        💰 Finança na Prática
+      </strong>
+
+      <p>
+        Educação financeira simples e prática.
+      </p>
+
+    </div>
+
+    <div>
+
+      <a href="#sobre">
+        Sobre
+      </a>
+
+      <a href="#">
+        Privacidade
+      </a>
+
+      <a href="#">
+        Termos
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="copyright">
+
+    © 2026 Finança na Prática.
+    Conteúdo educativo.
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function buscarArtigos(){
+
+  let texto =
+    document
+    .getElementById("pesquisa")
+    .value
+    .toLowerCase();
+
+  let artigos =
+    document.querySelectorAll(".card");
+
+  artigos.forEach(function(artigo){
+
+    let conteudo =
+      artigo.innerText.toLowerCase();
+
+    if(conteudo.includes(texto)){
+
+      artigo.style.display="block";
+
+    }else{
+
+      artigo.style.display="none";
+
+    }
+
+  });
+
+}
+
+</script>
+
+
 </body>
 </html>
+```
